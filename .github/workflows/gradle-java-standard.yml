@@ -1,9 +1,7 @@
-name: Gradle test, build and upload artifact
+name: Gradle test and publish.
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 jobs:
@@ -16,11 +14,3 @@ jobs:
     secrets:
       JORISG_REPO_USERNAME: ${{ secrets.JORISG_REPO_USERNAME }}
       JORISG_REPO_PASSWORD: ${{ secrets.JORISG_REPO_PASSWORD }}
-
-  javadoc:
-    needs: test
-    uses: MinestomBrick/.github/.github/workflows/java-gradle-javadoc.yml@main
-
-  pre-release:
-    needs: test
-    uses: MinestomBrick/.github/.github/workflows/java-gradle-github-release.yml@main
