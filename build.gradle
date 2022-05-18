@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'pl.allegro.tech.build.axion-release' version '1.13.6'
+}
+
+group = "com.guflimc.cloud"
+version = scmVersion.version
+
+sourceCompatibility = 1.17
+targetCompatibility = 1.17
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    api 'cloud.commandframework:cloud-core:+'
+
+    // provided by platform
+    compileOnly 'com.github.Minestom:Minestom:-SNAPSHOT'
+}
+
+ext.set("publishProjects", [this])
+apply from: 'https://guflimc.github.io/scripts/gradle/subprojects-publish.gradle'
