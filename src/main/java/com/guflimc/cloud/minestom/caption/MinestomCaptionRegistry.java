@@ -1,4 +1,4 @@
-package io.github.openminigameserver.cloudminestom.caption;
+package com.guflimc.cloud.minestom.caption;
 
 import cloud.commandframework.captions.SimpleCaptionRegistry;
 

@@ -1,4 +1,4 @@
-package io.github.openminigameserver.cloudminestom;
+package com.guflimc.cloud.minestom;
 
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.CommandTree;
@@ -6,11 +6,13 @@ import cloud.commandframework.execution.AsynchronousCommandExecutionCoordinator;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.CommandMeta;
 import cloud.commandframework.meta.SimpleCommandMeta;
-import io.github.openminigameserver.cloudminestom.caption.MinestomCaptionRegistry;
-import io.github.openminigameserver.cloudminestom.parsers.PlayerArgument;
+import com.guflimc.cloud.minestom.caption.MinestomCaptionRegistry;
+import com.guflimc.cloud.minestom.parsers.EntityTypeArgument;
+import com.guflimc.cloud.minestom.parsers.PlayerArgument;
 import io.leangen.geantyref.TypeToken;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.ConsoleSender;
+import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,10 +54,9 @@ public class MinestomCommandManager<C> extends CommandManager<C> {
         this.commandSenderMapper = commandSenderMapper;
         this.backwardsCommandSenderMapper = backwardsCommandSenderMapper;
 
-        this.getParserRegistry().registerParserSupplier(TypeToken.get(Player.class), parserParameters ->
-                new PlayerArgument.PlayerParser<>());
-
         this.setCaptionRegistry(new MinestomCaptionRegistry<>());
+
+        setupParsers();
     }
 
     @NotNull
@@ -72,12 +73,22 @@ public class MinestomCommandManager<C> extends CommandManager<C> {
     public boolean hasPermission(@NotNull C sender,
                                  @NotNull String permission) {
         CommandSender minestomSender = backwardsMapCommandSender(sender);
-        return minestomSender instanceof ConsoleSender || minestomSender.hasPermission(permission);
+        return minestomSender instanceof ConsoleSender || minestomSender.hasPermission(permission)
+                || (minestomSender instanceof Player p && p.getPermissionLevel() >= 4);
     }
 
     @Override
-    public @NotNull
-    CommandMeta createDefaultCommandMeta() {
+    public @NotNull CommandMeta createDefaultCommandMeta() {
         return SimpleCommandMeta.simple().build();
+    }
+
+    //
+
+    private void setupParsers() {
+        this.getParserRegistry().registerParserSupplier(TypeToken.get(Player.class), parserParameters ->
+                new PlayerArgument.PlayerParser<>());
+
+        getParserRegistry().registerParserSupplier(TypeToken.get(EntityType.class), parserParameters ->
+                new EntityTypeArgument.EntityTypeParser<>());
     }
 }

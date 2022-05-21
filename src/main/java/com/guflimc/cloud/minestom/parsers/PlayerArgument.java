@@ -1,4 +1,4 @@
-package io.github.openminigameserver.cloudminestom.parsers;
+package com.guflimc.cloud.minestom.parsers;
 
 import cloud.commandframework.arguments.CommandArgument;
 import cloud.commandframework.arguments.parser.ArgumentParseResult;
@@ -7,7 +7,7 @@ import cloud.commandframework.captions.CaptionVariable;
 import cloud.commandframework.context.CommandContext;
 import cloud.commandframework.exceptions.parsing.NoInputProvidedException;
 import cloud.commandframework.exceptions.parsing.ParserException;
-import io.github.openminigameserver.cloudminestom.caption.MinestomCaptionKeys;
+import com.guflimc.cloud.minestom.caption.MinestomCaptionKeys;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import org.jetbrains.annotations.NotNull;

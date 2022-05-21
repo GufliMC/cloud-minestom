@@ -1,4 +1,4 @@
-package io.github.openminigameserver.cloudminestom;
+package com.guflimc.cloud.minestom;
 
 import cloud.commandframework.arguments.CommandArgument;
 import cloud.commandframework.arguments.StaticArgument;
