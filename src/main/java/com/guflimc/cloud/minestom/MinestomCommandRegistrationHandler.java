@@ -17,8 +17,6 @@ public class MinestomCommandRegistrationHandler<C> implements CommandRegistratio
 
     @Override
     public boolean registerCommand(@NotNull Command<?> command) {
-        System.out.println("registering " + command.getArguments().stream().map(CommandArgument::getName)
-                .collect(Collectors.joining(" ")));
         MinestomCloudCommand.setup(commandManager, (Command<C>) command);
         return true;
     }
