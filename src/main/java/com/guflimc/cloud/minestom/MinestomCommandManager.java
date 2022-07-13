@@ -48,13 +48,13 @@ public class MinestomCommandManager<C> extends CommandManager<C> {
                                   final @NotNull Function<C, CommandSender> backwardsCommandSenderMapper) {
         super(commandExecutionCoordinator, new MinestomCommandRegistrationHandler<>());
 
-        MinestomCommandRegistrationHandler<C> registrationHandler = (MinestomCommandRegistrationHandler<C>) getCommandRegistrationHandler();
+        MinestomCommandRegistrationHandler<C> registrationHandler = (MinestomCommandRegistrationHandler<C>) commandRegistrationHandler();
         registrationHandler.initialize(this);
 
         this.commandSenderMapper = commandSenderMapper;
         this.backwardsCommandSenderMapper = backwardsCommandSenderMapper;
 
-        this.setCaptionRegistry(new MinestomCaptionRegistry<>());
+        captionRegistry(new MinestomCaptionRegistry<>());
 
         setupParsers();
     }
@@ -85,10 +85,10 @@ public class MinestomCommandManager<C> extends CommandManager<C> {
     //
 
     private void setupParsers() {
-        this.getParserRegistry().registerParserSupplier(TypeToken.get(Player.class), parserParameters ->
+        parserRegistry().registerParserSupplier(TypeToken.get(Player.class), parserParameters ->
                 new PlayerArgument.PlayerParser<>());
 
-        getParserRegistry().registerParserSupplier(TypeToken.get(EntityType.class), parserParameters ->
+        parserRegistry().registerParserSupplier(TypeToken.get(EntityType.class), parserParameters ->
                 new EntityTypeArgument.EntityTypeParser<>());
     }
 }
